@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Recorder</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #1a2a6c, #000000, #5c5b5a);
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        video {
+            width: 80%;
+            max-width: 800px;
+            height: auto;
+            border: 3px solid white;
+            border-radius: 10px;
+        }
+
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:disabled {
+            background: #555;
+        }
+
+        button:not(:disabled):hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+    <video id="myVideo" style="transform: scaleX(-1);" autoplay></video>
+    <br>
+    <button id="startButton" disabled>Start Recording (Press 's')</button>
+    <button id="stopButton" disabled>Stop Recording (Press 'q')</button>
+
+    <script>
+        let mediaRecorder;
+        let recordedBlobs;
+
+        const constraints = {
+            audio: false,
+            video: {
+                width: 320, height: 240
+            }
+            
+        };
+
+        async function init(constraints) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                handleSuccess(stream);
+            } catch (e) {
+                console.error('navigator.getUserMedia error:', e);
+            }
+        }
+
+        function handleSuccess(stream) {
+            const video = document.querySelector('video');
+            video.srcObject = stream;
+            window.stream = stream;
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 's') {
+                startRecording();
+            } else if (event.key === 'q') {
+                stopRecording();
+                uploadVideo();
+            }
+        });
+
+        function startRecording() {
+            recordedBlobs = [];
+            document.querySelector('textarea').innerText = '';
+            let options = { mimeType: 'video/webm;codecs=vp9' };
+            if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+                console.error(`${options.mimeType} is not Supported`);
+                options = { mimeType: 'video/webm;codecs=vp8' };
+                if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+                    console.error(`${options.mimeType} is not Supported`);
+                    options = { mimeType: 'video/webm' };
+                    if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+                        console.error(`${options.mimeType} is not Supported`);
+                        options = { mimeType: '' };
+                    }
+                }
+            }
+
+            try {
+                mediaRecorder = new MediaRecorder(window.stream, options);
+            } catch (e) {
+                console.error('Exception while creating MediaRecorder:', e);
+                return;
+            }
+
+            mediaRecorder.onstop = (event) => {
+                console.log('Recorder stopped: ', event);
+                console.log('Recorded Blobs: ', recordedBlobs);
+            };
+
+            mediaRecorder.ondataavailable = handleDataAvailable;
+            mediaRecorder.start(10); // collect 10ms of data blobs
+            console.log('MediaRecorder started', mediaRecorder);
+            document.querySelector('#startButton').disabled = true;
+            document.querySelector('#stopButton').disabled = false;
+        }
+
+        function stopRecording() {
+            mediaRecorder.stop();
+            document.querySelector('#startButton').disabled = false;
+            document.querySelector('#stopButton').disabled = true;
+        }
+
+        function handleDataAvailable(event) {
+            if (event.data && event.data.size > 0) {
+                recordedBlobs.push(event.data);
+            }
+        }
+
+        async function uploadVideo() {
+            const blob = new Blob(recordedBlobs, { type: 'video/webm' });
+            const formData = new FormData();
+            formData.append('video', blob, 'video.webm');
+
+            try {
+                const response = await fetch('/upload_video/', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                console.log('Server response:', result);
+                const message = result['message'];
+                
+                document.querySelector('textarea').innerText = message;
+            } catch (error) {
+                console.error('Error uploading video:', error);
+            }
+        }
+
+        init(constraints);
+    </script>
+
+    <textarea style="font-size: 30px; background-color: transparent; color: white; text-align: center;"></textarea>
+</body>
+</html>

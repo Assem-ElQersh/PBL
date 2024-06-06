@@ -41,7 +41,6 @@ def load_video(path):
 def main():
     file = os.path.join("C:", os.sep, "Users", "zi3dt", "pbl", "media", "uploaded_videos", "video.mp4") 
     # x = DataLoader.DataLoader.load_inference_data(file)
-    print("KOSOM EL SISIIIIIIII")
     x = DataLoader.DataLoader.load_inference_data(file)
     print(x.shape)
     prediction = predict(x)

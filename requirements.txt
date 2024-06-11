@@ -1,0 +1,7 @@
+imageio
+numpy
+matplotlib
+mediapipe
+Pillow
+tensorflow
+scikit-learn

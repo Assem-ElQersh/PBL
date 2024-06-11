@@ -10,7 +10,7 @@ This project is a web application designed to translate Arabic sign language int
 
 - **Team Members:** 
 - **Supervisor:** Dr. Ahmed Fares
-- **Course:** Project Based Learning (PBL)
+- **Course:** Project-Based Learning (PBL)
 
 ## Problem Statement
 
@@ -87,9 +87,9 @@ This project demonstrates the potential of machine learning and computer vision 
 
 For more information or to contribute to this project, please contact:
 
-- [Assem ElQersh]
-- [assemsaid35@gmail.com]
-- [https://www.linkedin.com/in/assemelqersh/]
+- []
+- []
+- []
 
 ---
 

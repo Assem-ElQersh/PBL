@@ -1,4 +1,4 @@
-### README for Sign to Text Translation System Using Arabic Sign Language
+### Sign to Text Translation System Using Arabic Sign Language
 
 ---
 

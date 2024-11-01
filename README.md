@@ -1,6 +1,6 @@
 # Sign-to-Text Translation System Using Arabic Sign Language 
 
---------
+---
 
 ## Project Overview  
 
@@ -50,7 +50,7 @@ The web application captures real-time video and translates Arabic sign language
 
 ### Results and Performance
 
-- **Accuracy:** Achieved high training and test accuracies, demonstrating the effectiveness of the model.
+- **Accuracy:** Achieved high training and test accuracies, demonstrating the model's effectiveness.
 - **User Interface:** Developed a user-friendly web interface to interact with the model and provide real-time translations.
 
 ### Challenges and Solutions
@@ -83,29 +83,7 @@ The web application captures real-time video and translates Arabic sign language
 
 This project demonstrates the potential of machine learning and computer vision to create impactful solutions for real-world problems. By translating Arabic sign language into text, we aim to improve communication and inclusion for deaf individuals, making a positive difference in their lives.
 
-## Contact
 
-For more information or to contribute to this project, please contact:
-
-- []
-- []
-- []
-
----
-
-Thank you for your interest in our project. We look forward to your feedback and support!
-
----
-
-### Keywords
-
-- Sign Language
-- Machine Learning
-- Accessibility
-- Inclusion
-- Arabic Sign Language
-- Real-time Translation
-- Computer Vision
-- Web Application
+I appreciate your interest in our project. We look forward to your feedback and support!
 
 ---

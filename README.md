@@ -1,6 +1,6 @@
 # Sign-to-Text Translation System Using Arabic Sign Language 
 
-------
+--------
 
 ## Project Overview  
 

@@ -1,8 +1,8 @@
-# Sign-to-Text Translation System Using Arabic Sign Language
+# Sign-to-Text Translation System Using Arabic Sign Language 
 
----
+------
 
-## Project Overview
+## Project Overview  
 
 This project is a web application designed to translate Arabic sign language into text in real-time. It aims to bridge the communication gap between deaf and non-deaf individuals, promoting social inclusion and accessibility.
 
